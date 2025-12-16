@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于 - 鹿衔</title>
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦌</text></svg>">
+</head>
+<body>
+    <!-- 背景装饰元素 -->
+    <div class="bg-elements">
+        <div class="bg-element" style="width: 280px; height: 280px; top: 30%; right: 10%;"></div>
+        <div class="bg-element" style="width: 180px; height: 180px; bottom: 30%; left: 15%;"></div>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">🦌</div>
+                鹿衔
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> 首页</a></li>
+                <li><a href="wallpaper.html"><i class="fas fa-image"></i> 推荐壁纸</a></li>
+                <li><a href="gallery.html"><i class="fas fa-images"></i> 全部作品</a></li>
+                <li><a href="about.html" class="active"><i class="fas fa-user"></i> 关于</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主内容 -->
+    <main class="main-content">
+        <div class="container">
+            <div class="page-title">
+                <h1>关于鹿衔</h1>
+                <p>视觉设计师 | 美学探索者</p>
+            </div>
+
+            <div class="glass card" style="max-width: 900px; margin: 0 auto;">
+                <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; align-items: center;">
+                    <div style="text-align: center;">
+                        <div style="width: 200px; height: 200px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: 5rem;">
+                            🦌
+                        </div>
+                    </div>
+                    <div>
+                        <h2 style="margin-bottom: 1rem;">你好，我是鹿衔</h2>
+                        <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+                            一名专注于视觉设计与美学的创作者。我相信好的设计能够触动人心，传递情感，
+                            并在日常生活中带来美的享受。我的作品涵盖自然、城市、艺术和科技等多个领域，
+                            每一幅图像都经过精心挑选和编辑，力求展现最纯粹的视觉美感。
+                        </p>
+                        <div style="display: flex; gap: 1rem;">
+                            <a href="https://github.com" target="_blank" class="btn btn-secondary">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                            <a href="mailto:contact@luxian.com" class="btn btn-secondary">
+                                <i class="fas fa-envelope"></i> 联系我
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-3" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                <div class="glass card">
+                    <h3 style="margin-bottom: 1rem;"><i class="fas fa-bullseye"></i> 设计理念</h3>
+                    <p style="color: var(--text-secondary);">
+                        追求简约而不简单，在细节中体现设计的力量。我相信好的设计应该是功能与美学的完美结合，
+                        既实用又能够带来视觉享受。
+                    </p>
+                </div>
+                
+                <div class="glass card">
+                    <h3 style="margin-bottom: 1rem;"><i class="fas fa-tools"></i> 工具与技术</h3>
+                    <ul style="color: var(--text-secondary); padding-left: 1.5rem;">
+                        <li>Adobe Creative Suite</li>
+                        <li>Figma & Sketch</li>
+                        <li>HTML/CSS/JavaScript</li>
+                        <li>摄影与后期处理</li>
+                    </ul>
+                </div>
+                
+                <div class="glass card">
+                    <h3 style="margin-bottom: 1rem;"><i class="fas fa-heart"></i> 兴趣领域</h3>
+                    <ul style="color: var(--text-secondary); padding-left: 1.5rem;">
+                        <li>自然风光摄影</li>
+                        <li>城市建筑美学</li>
+                        <li>抽象艺术创作</li>
+                        <li>科技可视化</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="glass card mt-3">
+                <h2 style="margin-bottom: 1rem;">项目与成就</h2>
+                <div style="color: var(--text-secondary);">
+                    <p style="margin-bottom: 1rem;">
+                        多年来，我参与了多个视觉设计项目，并与不同领域的创作者合作，
+                        共同探索视觉表达的无限可能。我的作品曾多次在线上平台展出，
+                        并获得了广泛的好评和认可。
+                    </p>
+                    <p>
+                        目前，我专注于创建这个视觉展示网站，旨在与更多人分享我对美的理解和追求。
+                        希望通过这个平台，能够为访客带来灵感，并在日常生活中发现更多美好。
+                    </p>
+                </div>
+            </div>
+
+            <div class="glass card mt-3 text-center">
+                <h3>保持联系</h3>
+                <p style="color: var(--text-secondary); margin-top: 1rem;">
+                    如果你对我的作品感兴趣，或者有任何合作想法，欢迎通过以下方式联系我：
+                </p>
+                <div style="display: flex; justify-content: center; gap: 1.5rem; margin-top: 1.5rem; flex-wrap: wrap;">
+                    <a href="mailto:contact@luxian.com" style="color: var(--text-color); text-decoration: none;">
+                        <i class="fas fa-envelope"></i> contact@luxian.com
+                    </a>
+                    <a href="https://github.com" target="_blank" style="color: var(--text-color); text-decoration: none;">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                    <a href="https://twitter.com" target="_blank" style="color: var(--text-color); text-decoration: none;">
+                        <i class="fab fa-twitter"></i> Twitter
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">🦌</div>
+                    鹿衔
+                </a>
+                <ul class="footer-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="wallpaper.html">推荐壁纸</a></li>
+                    <li><a href="gallery.html">全部作品</a></li>
+                    <li><a href="about.html">关于</a></li>
+                </ul>
+                <p class="copyright">© 2023 鹿衔 视觉设计. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 初始化函数
+        function initAboutPage() {
+            // 导航栏滚动效果
+            const navbar = document.querySelector('.navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', initAboutPage);
+    </script>
+</body>
+</html>
