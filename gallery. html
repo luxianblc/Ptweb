@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全部作品 - 鹿衔</title>
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦌</text></svg>">
+</head>
+<body>
+    <!-- 背景装饰元素 -->
+    <div class="bg-elements">
+        <div class="bg-element" style="width: 350px; height: 350px; top: 15%; left: 10%;"></div>
+        <div class="bg-element" style="width: 200px; height: 200px; bottom: 25%; right: 15%;"></div>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">🦌</div>
+                鹿衔
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html"><i class="fas fa-home"></i> 首页</a></li>
+                <li><a href="wallpaper.html"><i class="fas fa-image"></i> 推荐壁纸</a></li>
+                <li><a href="gallery.html" class="active"><i class="fas fa-images"></i> 全部作品</a></li>
+                <li><a href="about.html"><i class="fas fa-user"></i> 关于</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主内容 -->
+    <main class="main-content">
+        <div class="container">
+            <div class="page-title">
+                <h1>全部作品</h1>
+                <p>探索完整作品集，发现更多视觉惊喜。</p>
+            </div>
+
+            <!-- 作品网格 -->
+            <div class="image-grid" id="galleryGrid">
+                <!-- 作品将通过JavaScript动态生成 -->
+            </div>
+
+            <!-- 加载更多 -->
+            <div class="text-center mt-3">
+                <button class="btn btn-secondary" id="loadMore">
+                    <i class="fas fa-spinner"></i> 加载更多作品
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">🦌</div>
+                    鹿衔
+                </a>
+                <ul class="footer-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="wallpaper.html">推荐壁纸</a></li>
+                    <li><a href="gallery.html">全部作品</a></li>
+                    <li><a href="about.html">关于</a></li>
+                </ul>
+                <p class="copyright">© 2023 鹿衔 视觉设计. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 灯箱 -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">&times;</button>
+        <div class="lightbox-content">
+            <img id="lightboxImage" src="" alt="">
+            <div id="lightboxInfo" style="color: white; text-align: center; margin-top: 1rem;"></div>
+        </div>
+    </div>
+
+    <script>
+        // 作品数据
+        const allWorks = [
+            // 自然类
+            {
+                id: 1,
+                title: "山间日出",
+                description: "清晨的第一缕阳光洒在山峦之间",
+                category: "nature",
+                url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                date: "2023-10"
+            },
+            {
+                id: 2,
+                title: "森林小径",
+                description: "阳光透过树叶洒在蜿蜒的小路上",
+                category: "nature",
+                url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                date: "2023-09"
+            },
+            {
+                id: 3,
+                title: "海滩日落",
+                description: "夕阳西下，金色的阳光洒在海面上",
+                category: "nature",
+                url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                date: "2023-08"
+            },
+            // 城市类
+            {
+                id: 4,
+                title: "未来都市",
+                description: "现代建筑与科技感的结合",
+                category: "city",
+                url: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                date: "2023-10"
+            },
+            {
+                id: 5,
+                title: "都市夜景",
+                description: "夜幕下的城市灯火辉煌",
+                category: "city",
+                url: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                date: "2023-09"
+            },
+            {
+                id: 6,
+                title: "建筑几何",
+                description: "现代建筑的几何美学",
+                category: "city",
+                url: "https://images.unsplash.com/photo-1487956382158-bb926046304a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                date: "2023-08"
+            },
+            // 艺术类
+            {
+                id: 7,
+                title: "抽象艺术",
+                description: "色彩与线条的碰撞",
+                category: "art",
+                url: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                date: "2023-10"
+            },
+            {
+                id: 8,
+                title: "街头涂鸦",
+                description: "城市中的艺术表达",
+                category: "art",
+                url: "https://images.unsplash.com/photo-1544966503-7cc5ac882d5a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                date: "2023-09"
+            },
+            {
+                id: 9,
+                title: "水彩画作",
+                description: "柔和的水彩渐变",
+                category: "art",
+                url: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                date: "2023-08"
+            },
+            // 科技类
+            {
+                id: 10,
+                title: "科技芯片",
+                description: "微观世界中的科技奇迹",
+                category: "tech",
+                url: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                date: "2023-10"
+            },
+            {
+                id: 11,
+                title: "数据可视化",
+                description: "复杂数据的美丽呈现",
+                category: "tech",
+                url: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                date: "2023-09"
+            },
+            {
+                id: 12,
+                title: "人工智能",
+                description: "神经网络可视化",
+                category: "tech",
+                url: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80",
+                date: "2023-08"
+            }
+        ];
+
+        // 初始化函数
+        function initGalleryPage() {
+            const galleryGrid = document.getElementById('galleryGrid');
+            const loadMoreBtn = document.getElementById('loadMore');
+            
+            let currentPage = 1;
+            const itemsPerPage = 6;
+            
+            // 渲染作品
+            function renderWorks(page = 1) {
+                const startIndex = (page - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+                const worksToShow = allWorks.slice(0, endIndex);
+                
+                galleryGrid.innerHTML = '';
+                
+                worksToShow.forEach(work => {
+                    const workCard = document.createElement('div');
+                    workCard.className = 'image-card glass';
+                    
+                    workCard.innerHTML = `
+                        <img src="${work.url}" alt="${work.title}" loading="lazy">
+                        <div class="image-overlay">
+                            <h3>${work.title}</h3>
+                            <p>${work.description}</p>
+                            <div style="display: flex; justify-content: space-between; margin-top: 0.5rem;">
+                                <span><i class="fas fa-tag"></i> ${work.category === 'nature' ? '自然' : 
+                                    work.category === 'city' ? '城市' : 
+                                    work.category === 'art' ? '艺术' : '科技'}</span>
+                                <span><i class="fas fa-calendar"></i> ${work.date}</span>
+                            </div>
+                        </div>
+                    `;
+                    
+                    workCard.addEventListener('click', () => {
+                        openLightbox(work.url, work.title, work.description, work.date, work.category);
+                    });
+                    
+                    galleryGrid.appendChild(workCard);
+                });
+                
+                // 显示/隐藏"加载更多"按钮
+                if (endIndex >= allWorks.length) {
+                    loadMoreBtn.style.display = 'none';
+                } else {
+                    loadMoreBtn.style.display = 'inline-flex';
+                }
+            }
+            
+            // 加载更多功能
+            loadMoreBtn.addEventListener('click', () => {
+                currentPage++;
+                renderWorks(currentPage);
+            });
+            
+            // 灯箱功能
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+            const lightboxInfo = document.getElementById('lightboxInfo');
+            const lightboxClose = document.getElementById('lightboxClose');
+            
+            function openLightbox(src, title, description, date, category) {
+                lightboxImage.src = src;
+                const categoryText = category === 'nature' ? '自然' : 
+                                    category === 'city' ? '城市' : 
+                                    category === 'art' ? '艺术' : '科技';
+                lightboxInfo.innerHTML = `
+                    <h3>${title}</h3>
+                    <p>${description}</p>
+                    <p><i class="fas fa-tag"></i> 分类: ${categoryText} | <i class="fas fa-calendar"></i> 日期: ${date}</p>
+                `;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function closeLightbox() {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+            
+            lightboxClose.addEventListener('click', closeLightbox);
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) closeLightbox();
+            });
+            
+            // 初始渲染
+            renderWorks();
+            
+            // 导航栏滚动效果
+            const navbar = document.querySelector('.navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', initGalleryPage);
+    </script>
+</body>
+</html>
