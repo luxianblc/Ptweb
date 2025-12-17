@@ -532,3 +532,190 @@ body {
 .p-1 { padding: 1rem; }
 .p-2 { padding: 2rem; }
 .p-3 { padding: 3rem; }
+
+/* ====== 新增样式：规范化通用组件 ====== */
+
+/* 图片网格通用样式 */
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.image-card {
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+}
+
+.image-card:hover {
+    transform: translateY(-8px);
+}
+
+.image-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.image-card:hover img {
+    transform: scale(1.05);
+}
+
+.image-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--overlay-gradient);
+    padding: 1.5rem;
+    transform: translateY(10px);
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.image-card:hover .image-overlay {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.image-overlay h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.image-overlay p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* 绘画作品页面特有样式 */
+.paintings-controls {
+    margin-bottom: 2.5rem;
+}
+
+.paintings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.painting-card {
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    transition: var(--transition);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.painting-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px var(--card-shadow);
+}
+
+.painting-img-container {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+}
+
+.painting-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.painting-card:hover .painting-img-container img {
+    transform: scale(1.05);
+}
+
+.painting-info {
+    padding: 1.2rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.painting-info h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    line-height: 1.4;
+}
+
+.painting-info p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+}
+
+.painting-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: auto;
+}
+
+.painting-tag {
+    padding: 4px 10px;
+    background: rgba(107, 112, 255, 0.15);
+    color: #8a90ff;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.painting-tag.original {
+    background: rgba(107, 255, 206, 0.15);
+    color: #6bffce;
+}
+
+.painting-tag.derivative {
+    background: rgba(255, 107, 184, 0.15);
+    color: #ff6bb8;
+}
+
+.painting-tag.collab {
+    background: rgba(255, 193, 107, 0.15);
+    color: #ffc16b;
+}
+
+.collaborators {
+    margin-top: 0.8rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.85rem;
+}
+
+.collaborators span {
+    color: var(--text-secondary);
+    margin-right: 0.5rem;
+}
+
+.collaborator-name {
+    color: #ffc16b !important;
+    font-weight: 500;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .paintings-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .paintings-grid {
+        grid-template-columns: 1fr;
+    }
+}
