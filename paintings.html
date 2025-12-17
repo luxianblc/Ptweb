@@ -4,135 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我的绘画 - 鹿衔</title>
+    
+    <!-- 使用本地网站图标 -->
+    <link rel="icon" href="assets/icons/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+    
+    <!-- 样式文件 -->
     <link rel="stylesheet" href="global.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦌</text></svg>">
-    <style>
-        /* 专为本页面添加的样式 */
-        .paintings-controls {
-            margin-bottom: 2.5rem;
-        }
-        .paintings-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-        /* 小红书风格卡片 */
-        .painting-card {
-            border-radius: 16px;
-            overflow: hidden;
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            transition: var(--transition);
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-        }
-        .painting-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
-        }
-        .painting-img-container {
-            width: 100%;
-            aspect-ratio: 3 / 4; /* 控制图片容器比例，类似小红书 */
-            overflow: hidden;
-        }
-        .painting-img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* 确保图片覆盖容器，不会变形 */
-            transition: transform 0.5s ease;
-        }
-        .painting-card:hover .painting-img-container img {
-            transform: scale(1.05);
-        }
-        .painting-info {
-            padding: 1.2rem;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        .painting-info h3 {
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-            line-height: 1.4;
-        }
-        .painting-info p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            line-height: 1.5;
-            margin-bottom: 1rem;
-            flex-grow: 1;
-        }
-        .painting-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: auto;
-        }
-        .painting-tag {
-            padding: 4px 10px;
-            background: rgba(107, 112, 255, 0.15);
-            color: #8a90ff;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-        .painting-tag.original {
-            background: rgba(107, 255, 206, 0.15);
-            color: #6bffce;
-        }
-        .painting-tag.derivative {
-            background: rgba(255, 107, 184, 0.15);
-            color: #ff6bb8;
-        }
-        .painting-tag.collab {
-            background: rgba(255, 193, 107, 0.15);
-            color: #ffc16b;
-        }
-        /* 新增的共同绘画合作者信息 */
-        .collaborators {
-            margin-top: 0.8rem;
-            padding-top: 0.8rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 0.85rem;
-        }
-        .collaborators span {
-            color: var(--text-secondary);
-            margin-right: 0.5rem;
-        }
-        .collaborator-name {
-            color: #ffc16b !important;
-            font-weight: 500;
-        }
+    
+    <!-- 模块化JavaScript（使用type="module"） -->
+    <script type="module" src="app.js"></script>
+    
+    <!-- 页面特定的JavaScript -->
+    <script type="module">
+        // 绘画作品页面数据
+        import { initImageGrid } from './modules/image-grid.js';
         
-        /* ====== 修复导航栏重叠问题 ====== */
-        /* 确保主内容区域有足够的上边距 */
-        .main-content {
-            padding-top: 100px;
-        }
+        const paintings = [
+            {
+                id: 1,
+                title: "晨曦森林",
+                description: "尝试用光斑表现清晨穿透树叶的阳光，色彩上选择了偏冷的蓝绿色调。",
+                category: "original",
+                tags: ["水彩", "风景"],
+                collaborators: [],
+                imgUrl: "assets/images/paintings/original1.jpg"
+            },
+            // ... 其他作品数据
+        ];
         
-        /* 移动端适配 */
-        @media (max-width: 768px) {
-            .main-content {
-                padding-top: 120px;
-            }
-            .paintings-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .main-content {
-                padding-top: 140px;
-            }
-            .paintings-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            // 初始化绘画作品网格
+            initImageGrid(paintings, 'paintingsGrid', {
+                cardTemplate: 'painting',
+                enableFilter: true,
+                filterButtons: document.querySelectorAll('.filter-btn')
+            });
+            
+            console.log('绘画作品页面初始化完成');
+        });
+    </script>
 </head>
 <body>
     <!-- 背景装饰元素 -->
@@ -145,7 +59,8 @@
     <nav class="navbar">
         <div class="container">
             <a href="index.html" class="logo">
-                <div class="logo-icon">🦌</div>
+                <!-- 使用本地图标 -->
+                <img src="assets/logo/deer-icon.svg" alt="鹿衔" class="logo-icon" width="32" height="32">
                 鹿衔
             </a>
             <ul class="nav-links">
@@ -178,7 +93,7 @@
 
             <!-- 绘画作品网格 -->
             <div class="paintings-grid" id="paintingsGrid">
-                <!-- 作品将通过JavaScript动态生成 -->
+                <!-- 作品通过JavaScript动态生成 -->
             </div>
         </div>
     </main>
@@ -188,7 +103,7 @@
         <div class="container">
             <div class="footer-content">
                 <a href="index.html" class="logo">
-                    <div class="logo-icon">🦌</div>
+                    <img src="assets/logo/deer-icon.svg" alt="鹿衔" class="logo-icon" width="32" height="32">
                     鹿衔
                 </a>
                 <ul class="footer-links">
@@ -211,216 +126,5 @@
             <div id="lightboxInfo" style="color: white; text-align: center; margin-top: 1rem;"></div>
         </div>
     </div>
-
-    <script>
-        // 绘画作品数据
-        const paintings = [
-            {
-                id: 1,
-                title: "晨",
-                description: "色彩上选择了偏冷的蓝绿色调。",
-                category: "original",
-                tags: ["人物", "半身"],
-                collaborators: [], // 原创作品没有合作者
-                imgUrl: "images/paintings/original/00.png"
-            },
-            {
-                id: 2,
-                title: "星夜幻想曲",
-                description: "临摹并融入个人理解的星空作品，用色更加大胆。",
-                category: "derivative",
-                tags: ["丙烯", "星空", "临摹"],
-                collaborators: [],
-                imgUrl: "images/paintings/derivative1.jpg"
-            },
-            {
-                id: 3,
-                title: "机械百合",
-                description: "将有机形态与机械结构结合的原创概念设计。",
-                category: "original",
-                tags: ["数码绘画", "概念设计"],
-                collaborators: [],
-                imgUrl: "images/paintings/original2.jpg"
-            },
-            {
-                id: 4,
-                title: "夏日祭回忆",
-                description: "基于喜爱的动漫场景进行的二次创作，改变了配色和视角。",
-                category: "derivative",
-                tags: ["板绘", "同人", "场景"],
-                collaborators: [],
-                imgUrl: "images/paintings/derivative2.jpg"
-            },
-            // 新增共同绘画作品
-            {
-                id: 5,
-                title: "城市交响曲",
-                description: "描绘未来都市的共生景观，建筑与自然元素的融合。",
-                category: "collab",
-                tags: ["合作", "城市", "板绘"],
-                collaborators: ["墨尘", "清泉"],
-                imgUrl: "images/paintings/collab1.jpg"
-            },
-            {
-                id: 6,
-                title: "幻想生物设计",
-                description: "结合东方神话与科幻元素创作的幻想生物。",
-                category: "collab",
-                tags: ["接龙", "角色设计", "幻想"],
-                collaborators: ["星海", "云崖", "流光"],
-                imgUrl: "images/paintings/collab2.jpg"
-            },
-            {
-                id: 7,
-                title: "抽象艺术",
-                description: "组合。",
-                category: "collab",
-                tags: ["抽象", "粉", "绘画"],
-                collaborators: ["春华", "夏炎", "秋实", "冬藏"],
-                imgUrl: "images/paintings/original/work2.png"
-            },
-            {
-                id: 8,
-                title: "数字梦境",
-                description: "探索数字化时代的情感表达，虚拟与现实的边界。",
-                category: "collab",
-                tags: ["数字艺术", "抽象", "实验"],
-                collaborators: ["Zero", "Echo"],
-                imgUrl: "images/paintings/collab4.jpg"
-            }
-        ];
-
-
-        // 页面初始化
-        function initPaintingsPage() {
-            const paintingsGrid = document.getElementById('paintingsGrid');
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            
-            let currentFilter = 'all';
-            
-            // 渲染作品网格
-            function renderPaintings() {
-                paintingsGrid.innerHTML = '';
-                
-                const filteredPaintings = paintings.filter(painting => {
-                    return currentFilter === 'all' || painting.category === currentFilter;
-                });
-                
-                if (filteredPaintings.length === 0) {
-                    paintingsGrid.innerHTML = `
-                        <div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--text-secondary);">
-                            <i class="fas fa-palette" style="font-size: 3rem; margin-bottom: 1rem;"></i>
-                            <h3>暂无作品</h3>
-                            <p>该分类下还没有作品哦</p>
-                        </div>
-                    `;
-                    return;
-                }
-                
-                filteredPaintings.forEach(painting => {
-                    const card = document.createElement('div');
-                    card.className = 'painting-card glass';
-                    card.setAttribute('data-category', painting.category);
-                    
-                    // 构建合作者信息HTML
-                    let collaboratorsHTML = '';
-                    if (painting.collaborators && painting.collaborators.length > 0) {
-                        collaboratorsHTML = `
-                            <div class="collaborators">
-                                <span><i class="fas fa-users"></i> 合作者:</span>
-                                ${painting.collaborators.map(name => 
-                                    `<span class="collaborator-name">${name}</span>`
-                                ).join('、')}
-                            </div>
-                        `;
-                    }
-                    
-                    card.innerHTML = `
-                        <div class="painting-img-container">
-                            <img src="${painting.imgUrl}" alt="${painting.title}" loading="lazy">
-                        </div>
-                        <div class="painting-info">
-                            <h3>${painting.title}</h3>
-                            <p>${painting.description}</p>
-                            ${collaboratorsHTML}
-                            <div class="painting-tags">
-                                <span class="painting-tag ${painting.category}">
-                                    ${painting.category === 'original' ? '原创' : 
-                                      painting.category === 'derivative' ? '二次创作' : '共同绘画'}
-                                </span>
-                                ${painting.tags.map(tag => `<span class="painting-tag">${tag}</span>`).join('')}
-                            </div>
-                        </div>
-                    `;
-                    
-                    // 点击卡片查看大图
-                    card.addEventListener('click', () => {
-                        openLightbox(painting.imgUrl, painting.title, painting.description, painting.collaborators);
-                    });
-                    
-                    paintingsGrid.appendChild(card);
-                });
-            }
-            
-            // 筛选按钮事件
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    this.classList.add('active');
-                    currentFilter = this.getAttribute('data-filter');
-                    renderPaintings();
-                });
-            });
-            
-            // 灯箱功能
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImage = document.getElementById('lightboxImage');
-            const lightboxInfo = document.getElementById('lightboxInfo');
-            const lightboxClose = document.getElementById('lightboxClose');
-            
-            function openLightbox(src, title, description, collaborators) {
-                lightboxImage.src = src;
-                
-                let collaboratorText = '';
-                if (collaborators && collaborators.length > 0) {
-                    collaboratorText = `<p><i class="fas fa-users"></i> 合作者: ${collaborators.join('、')}</p>`;
-                }
-                
-                lightboxInfo.innerHTML = `
-                    <h3>${title}</h3>
-                    <p>${description}</p>
-                    ${collaboratorText}
-                `;
-                lightbox.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-            
-            function closeLightbox() {
-                lightbox.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-            
-            lightboxClose.addEventListener('click', closeLightbox);
-            lightbox.addEventListener('click', (e) => {
-                if (e.target === lightbox) closeLightbox();
-            });
-            
-            // 初始渲染
-            renderPaintings();
-            
-            // 导航栏滚动效果
-            const navbar = document.querySelector('.navbar');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
-            });
-        }
-
-        // 页面加载完成后初始化
-        document.addEventListener('DOMContentLoaded', initPaintingsPage);
-    </script>
 </body>
 </html>
