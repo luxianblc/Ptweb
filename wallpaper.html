@@ -4,36 +4,150 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>推荐壁纸 - 鹿衔</title>
+    
+    <!-- 使用本地网站图标 -->
+    <link rel="icon" href="assets/icons/favicon.ico" type="image/x-icon">
+    
+    <!-- 样式文件 -->
     <link rel="stylesheet" href="global.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦌</text></svg>">
+    
+    <!-- 主应用脚本 -->
+    <script type="module" src="app.js"></script>
+    
+    <!-- 页面特定的JavaScript -->
+    <script type="module">
+        import { initImageGrid } from './modules/image-grid.js';
+        
+        // 壁纸数据
+        const wallpapers = [
+            {
+                id: 1,
+                title: "山间日出",
+                description: "清晨的第一缕阳光洒在山峦之间",
+                category: "nature",
+                url: "assets/images/wallpapers/mountain-sunrise.jpg", // 改为本地路径
+                resolution: "3840x2160"
+            },
+            {
+                id: 2,
+                title: "未来都市",
+                description: "现代建筑与科技感的结合",
+                category: "city",
+                url: "assets/images/wallpapers/future-city.jpg",
+                resolution: "3840x2160"
+            },
+            {
+                id: 3,
+                title: "抽象艺术",
+                description: "色彩与线条的碰撞",
+                category: "art",
+                url: "assets/images/wallpapers/abstract-art.jpg",
+                resolution: "2560x1440"
+            },
+            {
+                id: 4,
+                title: "科技芯片",
+                description: "微观世界中的科技奇迹",
+                category: "tech",
+                url: "assets/images/wallpapers/tech-chip.jpg",
+                resolution: "3840x2160"
+            },
+            {
+                id: 5,
+                title: "森林小径",
+                description: "阳光透过树叶洒在蜿蜒的小路上",
+                category: "nature",
+                url: "assets/images/wallpapers/forest-path.jpg",
+                resolution: "3840x2160"
+            },
+            {
+                id: 6,
+                title: "都市夜景",
+                description: "夜幕下的城市灯火辉煌",
+                category: "city",
+                url: "assets/images/wallpapers/city-night.jpg",
+                resolution: "3840x2160"
+            },
+            {
+                id: 7,
+                title: "街头涂鸦",
+                description: "城市中的艺术表达",
+                category: "art",
+                url: "assets/images/wallpapers/street-graffiti.jpg",
+                resolution: "2560x1440"
+            },
+            {
+                id: 8,
+                title: "数据可视化",
+                description: "复杂数据的美丽呈现",
+                category: "tech",
+                url: "assets/images/wallpapers/data-visualization.jpg",
+                resolution: "3840x2160"
+            }
+        ];
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            // 初始化壁纸网格
+            const gridOptions = {
+                enableFilter: true,
+                filterButtons: document.querySelectorAll('.filter-btn'),
+                enableSearch: true,
+                searchInput: document.getElementById('searchInput'),
+                cardTemplate: 'wallpaper'
+            };
+            
+            initImageGrid(wallpapers, 'wallpaperGrid', gridOptions);
+            
+            // 初始化筛选按钮
+            initFilterButtons();
+            
+            // 初始化搜索功能
+            initSearch();
+            
+            console.log('壁纸页面初始化完成');
+        });
+        
+        // 初始化筛选按钮
+        function initFilterButtons() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            let currentFilter = 'all';
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    currentFilter = this.getAttribute('data-filter');
+                    
+                    // 触发自定义事件，让 image-grid 模块处理筛选
+                    document.dispatchEvent(new CustomEvent('filterChange', {
+                        detail: { filter: currentFilter }
+                    }));
+                });
+            });
+        }
+        
+        // 初始化搜索功能
+        function initSearch() {
+            const searchInput = document.getElementById('searchInput');
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                
+                // 触发自定义事件，让 image-grid 模块处理搜索
+                document.dispatchEvent(new CustomEvent('searchChange', {
+                    detail: { searchTerm: searchTerm }
+                }));
+            });
+        }
+    </script>
 </head>
 <body>
-    <!-- 背景装饰元素 -->
-    <div class="bg-elements">
-        <div class="bg-element" style="width: 250px; height: 250px; top: 20%; right: 5%;"></div>
-        <div class="bg-element" style="width: 300px; height: 300px; bottom: 20%; left: 5%;"></div>
-    </div>
-
-    <!-- 导航栏 -->
-    <nav class="navbar">
-        <div class="container">
-            <a href="index.html" class="logo">
-                <div class="logo-icon">🦌</div>
-                鹿衔
-            </a>
-            <ul class="nav-links">
-                <li><a href="index.html"><i class="fas fa-home"></i> 首页</a></li>
-                <li><a href="wallpaper.html" class="active"><i class="fas fa-image"></i> 推荐壁纸</a></li>
-                <li><a href="gallery.html"><i class="fas fa-images"></i> 全部作品</a></li>
-                <li><a href="about.html"><i class="fas fa-user"></i> 关于</a></li>
-            </ul>
-        </div>
-    </nav>
-
+    <!-- 组件插入点 -->
+    <div id="header-insert"></div>
+    
     <!-- 主内容 -->
     <main class="main-content">
         <div class="container">
@@ -77,232 +191,9 @@
             </div>
         </div>
     </main>
-
-    <!-- 页脚 -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <a href="index.html" class="logo">
-                    <div class="logo-icon">🦌</div>
-                    鹿衔
-                </a>
-                <ul class="footer-links">
-                    <li><a href="index.html">首页</a></li>
-                    <li><a href="wallpaper.html">推荐壁纸</a></li>
-                    <li><a href="gallery.html">全部作品</a></li>
-                    <li><a href="about.html">关于</a></li>
-                </ul>
-                <p class="copyright">© 2023 鹿衔 视觉设计. 保留所有权利.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- 灯箱 -->
-    <div class="lightbox" id="lightbox">
-        <button class="lightbox-close" id="lightboxClose">&times;</button>
-        <div class="lightbox-content">
-            <img id="lightboxImage" src="" alt="">
-            <div id="lightboxInfo" style="color: white; text-align: center; margin-top: 1rem;"></div>
-        </div>
-    </div>
-
-    <script>
-        // 壁纸数据
-        const wallpapers = [
-            {
-                id: 1,
-                title: "山间日出",
-                description: "清晨的第一缕阳光洒在山峦之间",
-                category: "nature",
-                url: "https://yys.res.netease.com/pc/zt/20230421141009/data/picture/20251119/1/2732x2048.jpg",
-                resolution: "3840x2160"
-            },
-            {
-                id: 2,
-                title: "未来都市",
-                description: "现代建筑与科技感的结合",
-                category: "city",
-                url: "https://images.unsplash.com/photo-1487958449943-2429e8be8625?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80",
-                resolution: "3840x2160"
-            },
-            {
-                id: 3,
-                title: "抽象艺术",
-                description: "色彩与线条的碰撞",
-                category: "art",
-                url: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80",
-                resolution: "2560x1440"
-            },
-            {
-                id: 4,
-                title: "科技芯片",
-                description: "微观世界中的科技奇迹",
-                category: "tech",
-                url: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80",
-                resolution: "3840x2160"
-            },
-            {
-                id: 5,
-                title: "森林小径",
-                description: "阳光透过树叶洒在蜿蜒的小路上",
-                category: "nature",
-                url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80",
-                resolution: "3840x2160"
-            },
-            {
-                id: 6,
-                title: "都市夜景",
-                description: "夜幕下的城市灯火辉煌",
-                category: "city",
-                url: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80",
-                resolution: "3840x2160"
-            },
-            {
-                id: 7,
-                title: "街头涂鸦",
-                description: "城市中的艺术表达",
-                category: "art",
-                url: "https://images.unsplash.com/photo-1544966503-7cc5ac882d5a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80",
-                resolution: "2560x1440"
-            },
-            {
-                id: 8,
-                title: "数据可视化",
-                description: "复杂数据的美丽呈现",
-                category: "tech",
-                url: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80",
-                resolution: "3840x2160"
-            }
-        ];
-
-        // 初始化函数
-        function initWallpaperPage() {
-            const wallpaperGrid = document.getElementById('wallpaperGrid');
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            const searchInput = document.getElementById('searchInput');
-            
-            let currentFilter = 'all';
-            let currentSearch = '';
-            let filteredWallpapers = [...wallpapers];
-            
-            // 渲染壁纸
-            function renderWallpapers() {
-                wallpaperGrid.innerHTML = '';
-                
-                if (filteredWallpapers.length === 0) {
-                    wallpaperGrid.innerHTML = `
-                        <div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--text-secondary);">
-                            <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 1rem;"></i>
-                            <h3>未找到匹配的壁纸</h3>
-                            <p>请尝试其他搜索词或分类</p>
-                        </div>
-                    `;
-                    return;
-                }
-                
-                filteredWallpapers.forEach(wallpaper => {
-                    const wallpaperCard = document.createElement('div');
-                    wallpaperCard.className = 'image-card glass';
-                    wallpaperCard.setAttribute('data-category', wallpaper.category);
-                    
-                    wallpaperCard.innerHTML = `
-                        <img src="${wallpaper.url}" alt="${wallpaper.title}" loading="lazy">
-                        <div class="image-overlay">
-                            <h3>${wallpaper.title}</h3>
-                            <p>${wallpaper.description}</p>
-                            <div style="display: flex; justify-content: space-between; margin-top: 0.5rem;">
-                                <span><i class="fas fa-expand"></i> ${wallpaper.resolution}</span>
-                                <span><i class="fas fa-download"></i></span>
-                            </div>
-                        </div>
-                    `;
-                    
-                    wallpaperCard.addEventListener('click', () => {
-                        openLightbox(wallpaper.url, wallpaper.title, wallpaper.description, wallpaper.resolution);
-                    });
-                    
-                    wallpaperGrid.appendChild(wallpaperCard);
-                });
-            }
-            
-            // 筛选和搜索功能
-            function filterWallpapers() {
-                filteredWallpapers = wallpapers.filter(wallpaper => {
-                    const matchesFilter = currentFilter === 'all' || wallpaper.category === currentFilter;
-                    const matchesSearch = currentSearch === '' || 
-                        wallpaper.title.toLowerCase().includes(currentSearch) || 
-                        wallpaper.description.toLowerCase().includes(currentSearch);
-                    
-                    return matchesFilter && matchesSearch;
-                });
-                
-                renderWallpapers();
-            }
-            
-            // 筛选按钮事件
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    this.classList.add('active');
-                    currentFilter = this.getAttribute('data-filter');
-                    filterWallpapers();
-                });
-            });
-            
-            // 搜索输入事件
-            searchInput.addEventListener('input', function() {
-                currentSearch = this.value.toLowerCase();
-                filterWallpapers();
-            });
-            
-            // 灯箱功能
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImage = document.getElementById('lightboxImage');
-            const lightboxInfo = document.getElementById('lightboxInfo');
-            const lightboxClose = document.getElementById('lightboxClose');
-            
-            function openLightbox(src, title, description, resolution) {
-                lightboxImage.src = src;
-                lightboxInfo.innerHTML = `
-                    <h3>${title}</h3>
-                    <p>${description}</p>
-                    <p><i class="fas fa-expand"></i> 分辨率: ${resolution}</p>
-                    <p style="margin-top: 0.5rem;">
-                        <a href="${src}" target="_blank" style="color: #6b70ff; text-decoration: none;">
-                            <i class="fas fa-external-link-alt"></i> 查看原图
-                        </a>
-                    </p>
-                `;
-                lightbox.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-            
-            function closeLightbox() {
-                lightbox.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-            
-            lightboxClose.addEventListener('click', closeLightbox);
-            lightbox.addEventListener('click', (e) => {
-                if (e.target === lightbox) closeLightbox();
-            });
-            
-            // 初始渲染
-            renderWallpapers();
-            
-            // 导航栏滚动效果
-            const navbar = document.querySelector('.navbar');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
-            });
-        }
-
-        // 页面加载完成后初始化
-        document.addEventListener('DOMContentLoaded', initWallpaperPage);
-    </script>
+    
+    <!-- 组件插入点 -->
+    <div id="footer-insert"></div>
+    <div id="lightbox-insert"></div>
 </body>
 </html>
