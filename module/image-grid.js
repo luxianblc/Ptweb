@@ -131,3 +131,52 @@ function initFiltering(images, renderCallback, filterButtons) {
         });
     });
 }
+  // 筛选功能
+    function filterImages() {
+        currentImages = images.filter(image => {
+            const matchesFilter = currentFilter === 'all' || image.category === currentFilter;
+            const matchesSearch = currentSearch === '' || 
+                image.title.toLowerCase().includes(currentSearch) || 
+                (image.description && image.description.toLowerCase().includes(currentSearch));
+            
+            return matchesFilter && matchesSearch;
+        });
+        
+        renderImages(currentImages);
+    }
+    
+    // 初始化筛选
+    if (enableFilter && filterButtons.length > 0) {
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                currentFilter = this.getAttribute('data-filter');
+                filterImages();
+            });
+        });
+    }
+    
+    // 初始化搜索
+    if (enableSearch && searchInput) {
+        searchInput.addEventListener('input', function() {
+            currentSearch = this.value.toLowerCase();
+            filterImages();
+        });
+    }
+    
+    // 初始渲染
+    filterImages();
+    
+    console.log(`图片网格初始化完成，共加载 ${images.length} 张图片`);
+    
+    // 返回API供外部调用
+    return {
+        renderImages,
+        filterImages,
+        updateImages: function(newImages) {
+            images = [...newImages];
+            filterImages();
+        }
+    };
+}
