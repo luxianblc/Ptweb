@@ -5,74 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我的绘画 - 鹿衔</title>
     
-    <!-- 使用本地网站图标 -->
     <link rel="icon" href="assets/icons/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
-    
-    <!-- 样式文件 -->
     <link rel="stylesheet" href="global.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- 模块化JavaScript（使用type="module"） -->
     <script type="module" src="app.js"></script>
-    
-    <!-- 页面特定的JavaScript -->
-    <script type="module">
-        // 绘画作品页面数据
-        import { initImageGrid } from './modules/image-grid.js';
-        
-        const paintings = [
-            {
-                id: 1,
-                title: "晨曦森林",
-                description: "尝试用光斑表现清晨穿透树叶的阳光，色彩上选择了偏冷的蓝绿色调。",
-                category: "original",
-                tags: ["水彩", "风景"],
-                collaborators: [],
-                imgUrl: "assets/images/paintings/original1.jpg"
-            },
-            // ... 其他作品数据
-        ];
-        
-        // 页面加载完成后初始化
-        document.addEventListener('DOMContentLoaded', () => {
-            // 初始化绘画作品网格
-            initImageGrid(paintings, 'paintingsGrid', {
-                cardTemplate: 'painting',
-                enableFilter: true,
-                filterButtons: document.querySelectorAll('.filter-btn')
-            });
-            
-            console.log('绘画作品页面初始化完成');
-        });
-    </script>
 </head>
 <body>
-    <!-- 背景装饰元素 -->
-    <div class="bg-elements">
-        <div class="bg-element" style="width: 300px; height: 300px; top: 10%; left: 5%;"></div>
-        <div class="bg-element" style="width: 200px; height: 200px; bottom: 15%; right: 10%;"></div>
-    </div>
-
-    <!-- 导航栏 -->
-    <nav class="navbar">
-        <div class="container">
-            <a href="index.html" class="logo">
-                <!-- 使用本地图标 -->
-                <img src="assets/logo/deer-icon.svg" alt="鹿衔" class="logo-icon" width="32" height="32">
-                鹿衔
-            </a>
-            <ul class="nav-links">
-                <li><a href="index.html"><i class="fas fa-home"></i> 首页</a></li>
-                <li><a href="wallpaper.html"><i class="fas fa-image"></i> 推荐壁纸</a></li>
-                <li><a href="gallery.html"><i class="fas fa-images"></i> 全部作品</a></li>
-                <li><a href="paintings.html" class="active"><i class="fas fa-palette"></i> 我的绘画</a></li>
-                <li><a href="about.html"><i class="fas fa-user"></i> 关于</a></li>
-            </ul>
-        </div>
-    </nav>
-
+    <!-- 组件插入点 -->
+    <div id="header-insert"></div>
+    
     <!-- 主内容 -->
     <main class="main-content">
         <div class="container">
@@ -93,38 +36,13 @@
 
             <!-- 绘画作品网格 -->
             <div class="paintings-grid" id="paintingsGrid">
-                <!-- 作品通过JavaScript动态生成 -->
+                <!-- 通过JavaScript动态生成 -->
             </div>
         </div>
     </main>
-
-    <!-- 页脚 -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <a href="index.html" class="logo">
-                    <img src="assets/logo/deer-icon.svg" alt="鹿衔" class="logo-icon" width="32" height="32">
-                    鹿衔
-                </a>
-                <ul class="footer-links">
-                    <li><a href="index.html">首页</a></li>
-                    <li><a href="wallpaper.html">推荐壁纸</a></li>
-                    <li><a href="gallery.html">全部作品</a></li>
-                    <li><a href="paintings.html">我的绘画</a></li>
-                    <li><a href="about.html">关于</a></li>
-                </ul>
-                <p class="copyright">© 2023 鹿衔 视觉设计. 保留所有权利.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- 灯箱 -->
-    <div class="lightbox" id="lightbox">
-        <button class="lightbox-close" id="lightboxClose">&times;</button>
-        <div class="lightbox-content">
-            <img id="lightboxImage" src="" alt="">
-            <div id="lightboxInfo" style="color: white; text-align: center; margin-top: 1rem;"></div>
-        </div>
-    </div>
+    
+    <!-- 组件插入点 -->
+    <div id="footer-insert"></div>
+    <div id="lightbox-insert"></div>
 </body>
 </html>
